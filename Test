@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Code to generate Instagram followers
+
+# Replace <username> with your Instagram username
+username="<username>"
+
+# Replace <password> with your Instagram password
+password="<password>"
+
+# Replace <target_username> with the username of the account you want to get followers from
+target_username="<target_username>"
+
+# Login to Instagram
+curl -c cookies.txt -b cookies.txt -L -i -s -k -X POST -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept: */*' -H 'Referer: https://www.instagram.com/accounts/login/' -d 'username='$username'&password='$password'&queryParams=%7B%7D' 'https://www.instagram.com/accounts/login/ajax/'
+
+# Get the user ID of the target account
+user_id=$(curl -s -b cookies.txt -c cookies.txt -L -i -k -H 'Accept: */*' -H 'Referer: https://www.instagram.com/' 'https://www.instagram.com/'$target_username'/?__a=1' | grep -o '"id":"[0-9]*"' | cut -d':' -f2 | tr -d '"')
+
+# Get the followers of the target account
+followers=$(curl -s -b cookies.txt -c cookies.txt -L -i -k -H 'Accept: */*' -H 'Referer: https://www.instagram.com/' 'https://www.instagram.com/graphql/query/?query_hash=c76146de99bb02f6415203be841dd25a&variables=%7B%22id%22%3A%22'$user_id'%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3A50%7D' | grep -o '"username":"[^"]*"' | cut -d':' -f2 | tr -d '"')
+
+# Print the followers
+echo "$followers"
