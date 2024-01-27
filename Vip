@@ -1,11 +1,25 @@
-def get_instagram_followers(username):
-    # Code to get Instagram followers
-    pass
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
 
-def main():
-    username = input("Enter Instagram username: ")
-    followers = get_instagram_followers(username)
-    print(f"Number of followers: {followers}")
+# Set up the webdriver
+driver = webdriver.Chrome('path/to/chromedriver')
 
-if __name__ == "__main__":
-    main()
+# Open Instagram
+driver.get('https://www.instagram.com/')
+
+# Log in
+username = driver.find_element_by_name('username')
+password = driver.find_element_by_name('password')
+
+username.send_keys('your_username')
+password.send_keys('your_password')
+password.send_keys(Keys.RETURN)
+
+time.sleep(2)
+
+# Perform actions on Instagram
+# ...
+
+# Close the webdriver
+driver.quit()
