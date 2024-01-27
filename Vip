@@ -1,0 +1,11 @@
+def get_instagram_followers(username):
+    # Code to get Instagram followers
+    pass
+
+def main():
+    username = input("Enter Instagram username: ")
+    followers = get_instagram_followers(username)
+    print(f"Number of followers: {followers}")
+
+if __name__ == "__main__":
+    main()
