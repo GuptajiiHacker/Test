@@ -1,4 +1,13 @@
 import getpass
+import random
+
+  ascii_art =LoginScript""
+  for character in text:
+    color = random.choice(colors)
+    ascii_art += color + character
+  return ascii_art
+
+
 def login():
     username = input("Enter your username: ")
     password = getpass.getpass("Enter your password: ")
