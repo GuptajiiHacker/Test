@@ -1,25 +1,80 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+import curses
 import time
 
-# Set up the webdriver
-driver = webdriver.Chrome('path/to/chromedriver')
+def animate_login_screen(stdscr):
+    # Clear the screen
+    stdscr.clear()
 
-# Open Instagram
-driver.get('https://www.instagram.com/')
+    # Get screen dimensions
+    height, width = stdscr.getmaxyx()
 
-# Log in
-username = driver.find_element_by_name('username')
-password = driver.find_element_by_name('password')
+    # Set up text
+    login_text = "Termux Login"
+    username_text = "Username: "
+    password_text = "Password: "
+    success_message = "Login successful!"
 
-username.send_keys('your_username')
-password.send_keys('your_password')
-password.send_keys(Keys.RETURN)
+    # Initialize variables
+    username = ""
+    password = ""
+    key = 0
 
-time.sleep(2)
+    # Draw the screen elements
+    stdscr.addstr(height // 2 - len(login_text) // 2, (width - len(login_text)) // 2, login_text)
+    stdscr.addstr(height // 2 + 2, (width - len(username_text)) // 2, username_text)
+    stdscr.addstr(height // 2 + 4, (width - len(password_text)) // 2, password_text)
 
-# Perform actions on Instagram
-# ...
+    # Refresh the screen
+    stdscr.refresh()
 
-# Close the webdriver
-driver.quit()
+    # Get user input
+    while key != curses.KEY_RETURN:
+        key = stdscr.getch()
+
+        # Handle backspace key
+        if key == curses.KEY_BACKSPACE or key == 127:
+            if len(username) > 0:
+                username = username[:-1]
+                stdscr.addstr(height // 2 + 2, (width - len(username_text)) // 2 + len(username_text), username)
+                stdscr.refresh()
+            elif len(password) > 0:
+                password = password[:-1]
+                stdscr.addstr(height // 2 + 4, (width - len(password_text)) // 2 + len(password_text), password)
+                stdscr.refresh()
+
+        # Handle other keys
+        else:
+            char = chr(key)
+            if len(username) < 16:
+                username += char
+                stdscr.addstr(height // 2 + 2, (width - len(username_text)) // 2 + len(username_text), username)
+                stdscr.refresh()
+            elif len(password) < 16:
+                password += char
+                stdscr.addstr(height // 2 + 4, (width - len(password_text)) // 2 + len(password_text), password)
+                stdscr.refresh()
+
+    # Check if the entered username and password are correct
+    if username == "your_username" and password == "your_password":
+        # Display success message
+        success_x = width // 2 - len(success_message) // 2
+        stdscr.addstr(text_y, success_x, success_message)
+        stdscr.refresh()
+
+        # Pause for a short duration
+        time.sleep(2)
+    else:
+        # Display error message
+        error_message = "Invalid username or password!"
+        error_x = width // 2 - len(error_message) // 2
+        stdscr.addstr(text_y, error_x, error_message)
+        stdscr.refresh()
+
+        # Pause for a short duration
+        time.sleep(2)
+
+        # Exit the program
+        exit()
+
+# Initialize curses and run the animation
+curses.wrapper(animate_login_screen)
