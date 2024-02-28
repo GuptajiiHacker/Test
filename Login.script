@@ -1,7 +1,9 @@
 import getpass
 import pyfiglet
-echo -e "\e[1;33m"
-pyfiglet Login-Page
+text = input("Enter text to display: ")
+font = input("Enter font name: ")
+ascii_banner = pyfiglet.figlet_format(text, font=font)
+print(ascii_banner)
                                
 def login():
     username = input("Enter your username: ")
