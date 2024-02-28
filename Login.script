@@ -9,7 +9,7 @@ def banner():
             /____/          /_/          /____/       
     """                                                              
 print(font)
-if __name__ == "__main__":
+if __name__ == "__Loginpage__":
     banner()
                                 
 def login():
