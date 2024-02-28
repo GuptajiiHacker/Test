@@ -1,17 +1,5 @@
 import getpass
-def banner():
-    float = """ 
-    __                _                               
-   / /   ____  ____ _(_)___     ____  ____ _____ ____ 
-  / /   / __ \/ __ `/ / __ \   / __ \/ __ `/ __ `/ _ \
- / /___/ /_/ / /_/ / / / / /  / /_/ / /_/ / /_/ /  __/
-/_____/\____/\__, /_/_/ /_/  / .___/\__,_/\__, /\___/ 
-            /____/          /_/          /____/       
-    """                                                              
-print(float)
-if __name__ == "__Loginpage__":
-    banner()
-                                
+                               
 def login():
     username = input("Enter your username: ")
     password = getpass.getpass("Enter your password: ")
