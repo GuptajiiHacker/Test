@@ -1,5 +1,4 @@
 # /bin/python3
-cd
 import getpass
 RED = "\33[91m"
 BLUE = "\33[94m"
