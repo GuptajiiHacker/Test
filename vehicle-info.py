@@ -4,7 +4,6 @@ import sys
 import re
 import os
 import requests
-import cv2
 import json 
 import numpy as np
 from time import sleep
