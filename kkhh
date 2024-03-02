@@ -1,1 +1,11 @@
+import requests
+from bs4 import BeautifulSoup
 
+url = "https://www.vehiclehistory.gov/VIN/"
+vin = "WAUZZZ8V8KA091326"  # replace with the VIN you want to look up
+
+response = requests.get(f"{url}{vin}")
+soup = BeautifulSoup(response.content, "html.parser")
+
+plate_info = soup.find("td", text="Plate State/Number").find_next("td").text
+print(plate_info)
