@@ -5,7 +5,6 @@ import re
 import os
 import requests
 import json 
-import numpy as np
 from time import sleep
 try:
     import Image
