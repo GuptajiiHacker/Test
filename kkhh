@@ -6,7 +6,6 @@ def get_vehicle_info(reg_number):
     This function takes a vehicle registration number as input and returns the vehicle information.
     """
     # Replace YOUR_API_KEY with your actual API key
-    api_key = 
 
     # Make a GET request to the Vahan API
     response = requests.get(f"https://vahan.parivahan.gov.in/vahanservice/v1/registrationdetailsbyregno?reg_no={reg_number}&api_key={api_key}")
