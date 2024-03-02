@@ -1,11 +1,23 @@
 import requests
-from bs4 import BeautifulSoup
 
-url = "https://www.vehiclehistory.gov/VIN/"
-vin = "WAUZZZ8V8KA091326"  # replace with the VIN you want to look up
+def get_vehicle_info(registration_number):
+    """
+    This function takes a registration number as input and returns vehicle information.
+    """
+    url = f"https://vahan.parivahan.gov.in/vahanservice/vahanservice19/displayVehicleSearch.action?searchType=RTO&vehicleNumber={registration_number}"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299"
+    }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.text
+    else:
+        return None
 
-response = requests.get(f"{url}{vin}")
-soup = BeautifulSoup(response.content, "html.parser")
-
-plate_info = soup.find("td", text="Plate State/Number").find_next("td").text
-print(plate_info)
+# Test the function
+registration_number = "MH 04 AB 1234"
+vehicle_info = get_vehicle_info(registration_number)
+if vehicle_info:
+    print(vehicle_info)
+else:
+    print("Failed to get vehicle information.")
