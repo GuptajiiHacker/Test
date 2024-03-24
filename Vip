@@ -1,80 +1,18 @@
-import curses
 import time
+import pyautogui
 
-def animate_login_screen(stdscr):
-    # Clear the screen
-    stdscr.clear()
+# delay to switch windows
+time.sleep(10)
 
-    # Get screen dimensions
-    height, width = stdscr.getmaxyx()
+# message to spam
+message = "Hello stranger!"
 
-    # Set up text
-    login_text = "Termux Login"
-    username_text = "Username: "
-    password_text = "Password: "
-    success_message = "Login successful!"
+# loop to spam
+while True:
+    # Fetch and type the message
+    pyautogui.write(message)
+    # Press enter to send the message
+    pyautogui.press('enter')
 
-    # Initialize variables
-    username = ""
-    password = ""
-    key = 0
-
-    # Draw the screen elements
-    stdscr.addstr(height // 2 - len(login_text) // 2, (width - len(login_text)) // 2, login_text)
-    stdscr.addstr(height // 2 + 2, (width - len(username_text)) // 2, username_text)
-    stdscr.addstr(height // 2 + 4, (width - len(password_text)) // 2, password_text)
-
-    # Refresh the screen
-    stdscr.refresh()
-
-    # Get user input
-    while key != curses.KEY_RETURN:
-        key = stdscr.getch()
-
-        # Handle backspace key
-        if key == curses.KEY_BACKSPACE or key == 127:
-            if len(username) > 0:
-                username = username[:-1]
-                stdscr.addstr(height // 2 + 2, (width - len(username_text)) // 2 + len(username_text), username)
-                stdscr.refresh()
-            elif len(password) > 0:
-                password = password[:-1]
-                stdscr.addstr(height // 2 + 4, (width - len(password_text)) // 2 + len(password_text), password)
-                stdscr.refresh()
-
-        # Handle other keys
-        else:
-            char = chr(key)
-            if len(username) < 16:
-                username += char
-                stdscr.addstr(height // 2 + 2, (width - len(username_text)) // 2 + len(username_text), username)
-                stdscr.refresh()
-            elif len(password) < 16:
-                password += char
-                stdscr.addstr(height // 2 + 4, (width - len(password_text)) // 2 + len(password_text), password)
-                stdscr.refresh()
-
-    # Check if the entered username and password are correct
-    if username == "your_username" and password == "your_password":
-        # Display success message
-        success_x = width // 2 - len(success_message) // 2
-        stdscr.addstr(text_y, success_x, success_message)
-        stdscr.refresh()
-
-        # Pause for a short duration
-        time.sleep(2)
-    else:
-        # Display error message
-        error_message = "Invalid username or password!"
-        error_x = width // 2 - len(error_message) // 2
-        stdscr.addstr(text_y, error_x, error_message)
-        stdscr.refresh()
-
-        # Pause for a short duration
-        time.sleep(2)
-
-        # Exit the program
-        exit()
-
-# Initialize curses and run the animation
-curses.wrapper(animate_login_screen)
+    #Add a delay to simulate human typing
+    time.sleep(1.0)
