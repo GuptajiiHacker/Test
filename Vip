@@ -1,18 +1,28 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import time
-import pyautogui
 
-# delay to switch windows
+# Replace with your own path to the webdriver
+driver_path = "/path/to/chromedriver"
+
+# Replace with your own phone number and message
+phone_number = "1234567890"
+message = "Hello, this is a spam message."
+
+# Initialize the webdriver
+driver = webdriver.Chrome(executable_path=driver_path)
+
+# Open WhatsApp web
+driver.get("https://web.whatsapp.com/")
+
+# Wait for QR code scan
 time.sleep(10)
 
-# message to spam
-message = "Hello stranger!"
+# Search for the phone number
+search_box = driver.find_element_by_xpath('//*[@id="side"]/div[1]/div/label/div/div[2]')
+search_box.send_keys(phone_number)
+time.sleep(2)
+search_box.send_keys(Keys.ENTER)
 
-# loop to spam
-while True:
-    # Fetch and type the message
-    pyautogui.write(message)
-    # Press enter to send the message
-    pyautogui.press('enter')
-
-    #Add a delay to simulate human typing
-    time.sleep(1.0)
+# Select the chat
+chat = driver.find_element_by_xpath('//*[@id="main"]/div[3]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1
